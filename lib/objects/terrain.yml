@@ -1,31 +1,31 @@
 ---
-:player:
-  :color: "#8b7a1b"
-  :bg_color: "#e3cc4d"
-  :chars: [' ', '&', ' ']
-
 :forest:
   :color: "#46a646"
   :bg_color: "#1d411d"
+  :terrain_height: 60
   :chars: ['Y', ' ', ' ', ' ', ' ']
-  :random_chars: true
-
-:beach:
-  :color: "#8b7a1b"
-  :bg_color: "#e3cc4d"
-  :chars: [':', '.', ' ', ' ']
   :random_chars: true
 
 :water_shallow:
   :color: "#8b9ea8"
   :bg_color: "#708186"
+  :terrain_height: 20
+  :chars: [':', '.', ' ', ' ']
+  :random_chars: true
+
+:beach:
+  :color: "#8b7a1b"
+  :bg_color: "#e3cc4d"
+  :terrain_height: 40
   :chars: [':', '.', ' ', ' ']
   :random_chars: true
 
 :water_medium:
   :color: black
   :bg_color: "#4a78a5"
+  :terrain_height: 10
 
 :water_deep:
   :color: black
   :bg_color: "#29538a"
+  :terrain_height: 0

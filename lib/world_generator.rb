@@ -1,9 +1,11 @@
 require 'perlin'
+require 'pp'
 
 class WorldGenerator
-  attr_reader :elevations, :map
+  attr_reader :entities, :elevations, :map
 
-  def initialize(args={})
+  def initialize(entities, args={})
+    @entities = entities.sort_by{ |k,e| e.terrain_height }.reverse
     defaults.merge(args)
     .each { |k,v| instance_variable_set("@#{k}",v) }
 
@@ -18,10 +20,6 @@ class WorldGenerator
       map: [],
       seed: rand(1000),
       size: 200,
-      sea_level: 40,
-      shallow_sea_level: 20,
-      deep_sea_level: 10,
-      forest_level: 60,
     }
   end
 
@@ -29,38 +27,19 @@ class WorldGenerator
     @noise_map.each_index do |row|
       @map << []
       @noise_map[row].each_with_index do |value, column|
-        type = :water_deep    if value <= deep_sea_level
-        type = :water_medium  if value >  deep_sea_level    and value <= shallow_sea_level
-        type = :water_shallow if value >  shallow_sea_level and value <= sea_level
-        type = :beach         if value >  sea_level         and value <= forest_level
-        type = :forest        if value <= forest_level
-        type ||= :error
-        @map[row][column] = type
+        @map[row][column] = entity_from_height(value)
       end
     end
   end
 
-  def elevation_percent(percent)
+  def entity_from_height(height)
+    entities.each do |k, entity_klass|
+      return entity_klass.new if height >= elevation_from_percent(entity_klass.terrain_height)
+    end
+  end
+
+  def elevation_from_percent(percent)
     elevations[(elevations.length * percent * 0.01).floor]
   end
 
-  def sea_level
-    elevation_percent(@sea_level)
-  end
-
-  def shallow_sea_level
-    elevation_percent(@shallow_sea_level)
-  end
-
-  def deep_sea_level
-    elevation_percent(@deep_sea_level)
-  end
-
-  def forest_level
-    elevation_percent(@forest_level)
-  end
-
 end
-
-wg=WorldGenerator.new
-puts wg.map

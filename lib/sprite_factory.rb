@@ -3,6 +3,7 @@ require 'yaml'
 require 'active_support/inflector'
 
 class SpriteFactory
+  include Enumerable
   attr_accessor :klasses
 
 
@@ -13,11 +14,24 @@ class SpriteFactory
     manufactur_classes(objs) if objs
   end
 
+  def <<(val)
+    @klasses << val
+  end
+
+  def each(&block)
+    @klasses.each(&block)
+  end
+
   def manufactur_classes(objs)
     objs.each do |obj, properties|
       klass = Object.const_set(obj.to_s.camelize, Class.new(Sprite))
       klass.send(:define_method, :defaults) do
         super().merge(properties)
+      end
+      if properties.has_key? :terrain_height
+        klass.send(:define_singleton_method, :terrain_height) do
+          properties[:terrain_height]
+        end
       end
       @klasses[obj.to_sym] = klass
     end
