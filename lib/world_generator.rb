@@ -1,13 +1,14 @@
 require 'perlin'
 
 class WorldGenerator
-  attr_reader :entities, :elevations, :map
+  attr_reader :entities, :elevations, :map, :size
 
   def initialize(entities, args={})
     @entities = entities.sort_by{ |k,e| e.terrain_height }.reverse
     defaults.merge(args)
     .each { |k,v| instance_variable_set("@#{k}",v) }
 
+    # TODO Inject dependency
     perlin_gen = Perlin::Generator.new(200, 1, 2)
     @noise_map = perlin_gen.chunk(1, 1, @size, @size, 0.02)
     @elevations = @noise_map.flatten.sort
@@ -20,6 +21,14 @@ class WorldGenerator
       seed: rand(1000),
       size: 200,
     }
+  end
+
+  def width
+    size / 2
+  end
+
+  def height
+    size / 2
   end
 
   def generate_map

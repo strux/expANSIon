@@ -6,6 +6,7 @@ class Sprite
   def initialize(args={})
     defaults.merge(args)
     .each { |k,v| instance_variable_set("@#{k}",v) }
+    @string = chars
   end
 
   def defaults
@@ -18,7 +19,7 @@ class Sprite
   end
 
   def draw
-    Paint[chars, @color, @bg_color]
+    Paint[@string, @color, @bg_color]
   end
 
   private
