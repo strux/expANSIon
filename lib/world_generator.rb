@@ -1,5 +1,4 @@
 require 'perlin'
-require 'pp'
 
 class WorldGenerator
   attr_reader :entities, :elevations, :map

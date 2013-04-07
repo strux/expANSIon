@@ -1,4 +1,4 @@
-class Renderer
+class RenderEngine
 
   def initialize(map)
     t = Time.now
