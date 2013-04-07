@@ -1,0 +1,31 @@
+---
+:player:
+  :color: "#8b7a1b"
+  :bg_color: "#e3cc4d"
+  :chars: [' ', '&', ' ']
+
+:forest:
+  :color: "#46a646"
+  :bg_color: "#1d411d"
+  :chars: ['Y', ' ', ' ', ' ', ' ']
+  :random_chars: true
+
+:beach:
+  :color: "#8b7a1b"
+  :bg_color: "#e3cc4d"
+  :chars: [':', '.', ' ', ' ']
+  :random_chars: true
+
+:water_shallow:
+  :color: "#8b9ea8"
+  :bg_color: "#708186"
+  :chars: [':', '.', ' ', ' ']
+  :random_chars: true
+
+:water_medium:
+  :color: black
+  :bg_color: "#4a78a5"
+
+:water_deep:
+  :color: black
+  :bg_color: "#29538a"
