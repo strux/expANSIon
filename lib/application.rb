@@ -6,7 +6,8 @@ require_relative 'player'
 require_relative 'game_console'
 $DEBUG = true
 
-terrain = SpriteFactory.new(yaml: 'objects/terrain.yml')
+sprite_path = File.expand_path(File.join(File.dirname(__FILE__), "objects/terrain.yml"))
+terrain = SpriteFactory.new(yaml: sprite_path)
 world   = WorldGenerator.new(terrain, size: 200)
 engine  = RenderEngine.new(world.map)
 
