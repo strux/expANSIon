@@ -10,10 +10,10 @@ terrain = SpriteFactory.new(yaml: 'objects/terrain.yml')
 world   = WorldGenerator.new(terrain, size: 200)
 engine  = RenderEngine.new(world.map)
 
-engine.render_chunk
-if false
 player  = Player.new({x: world.width / 2, y: world.height / 2})
 engine.register(player)
 console = GameConsole.new(player: player, engine: engine)
 console.start
+if false
+engine.render_chunk
 end

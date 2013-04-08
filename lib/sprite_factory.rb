@@ -8,7 +8,7 @@ class SpriteFactory
 
 
   def initialize(args)
-    @klasses = {}
+    @klasses = []
     objs = YAML.load_file(args[:yaml]) if args[:yaml]
     objs = args[:objects] if args[:objects]
     manufactur_classes(objs) if objs
@@ -33,7 +33,17 @@ class SpriteFactory
           properties[:noise_range]
         end
       end
-      @klasses[obj.to_sym] = klass
+      if properties.has_key? :heat_range
+        klass.send(:define_singleton_method, :heat_range) do
+          properties[:heat_range]
+        end
+      end
+      if properties.has_key? :wet_range
+        klass.send(:define_singleton_method, :wet_range) do
+          properties[:wet_range]
+        end
+      end
+      @klasses << klass
     end
   end
 

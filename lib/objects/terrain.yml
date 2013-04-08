@@ -55,6 +55,12 @@
   :chars: [' ', ' ', ' ']
   :random_chars: true
 
+:biome:
+  :color: "black"
+  :bg_color: "red"
+  :noise_range: 47
+  :chars: ['B', 'I', 'O']
+
 :beach:
   :color: "#8b7a1b"
   :bg_color: "#e3cc4d"
