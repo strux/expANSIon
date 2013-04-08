@@ -1,7 +1,7 @@
-require 'paint'
+require_relative 'drawable'
 
 class Sprite
-  attr_accessor :chars, :random_chars, :bg_color, :color
+  include Drawable
 
   def initialize(args={})
     defaults.merge(args)
@@ -18,14 +18,4 @@ class Sprite
     }
   end
 
-  def draw
-    Paint[@string, @color, @bg_color]
-  end
-
-  private
-
-  def chars
-    chars =  random_chars ? @chars.sample(3) : @chars[0,3]
-    chars.join('')
-  end
 end
