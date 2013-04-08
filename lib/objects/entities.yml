@@ -1,0 +1,5 @@
+:player:
+  :color: "#46a646"
+  :bg_color: "#1d411d"
+  :terrain_height: 60
+  :chars: ['', 'X', ' ',]
