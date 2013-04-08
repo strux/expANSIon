@@ -14,6 +14,3 @@ player  = Player.new({x: world.width / 2, y: world.height / 2})
 engine.register(player)
 console = GameConsole.new(player: player, engine: engine)
 console.start
-if false
-engine.render_chunk
-end

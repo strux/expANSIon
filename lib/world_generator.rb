@@ -11,8 +11,8 @@ class WorldGenerator
 
     # TODO Inject dependency
     perlin_elevation  = Perlin::Generator.new(200, 1, 4)
-    perlin_heat       = Perlin::Generator.new(201, 1, 4)
-    perlin_wet        = Perlin::Generator.new(202, 1, 4)
+    perlin_wet        = Perlin::Generator.new(202, 1, 2)
+    perlin_heat       = Perlin::Generator.new(201, 1, 2)
     @wet_map          = perlin_wet.chunk(1, 1, @size, @size, 0.007)
     @heat_map         = perlin_heat.chunk(1, 1, @size, @size, 0.007)
     @elevation_map    = perlin_elevation.chunk(1, 1, @size, @size, 0.008)

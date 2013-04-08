@@ -6,9 +6,10 @@
   :heat_range: 0
   :wet_range: 66
   :chars: ['.', ' ', ' ', ' ', ' ']
+  :random_chars: true
 
 :rain_forest:
-  :color: "#46a646"
+  :color: "#2b240d"
   :bg_color: "#1d411d"
   :heat_range: 50
   :wet_range: 66
@@ -24,19 +25,19 @@
   :random_chars: true
 
 :forest:
-  :color: "#46a646"
+  :color: "#0f210f"
   :bg_color: "#1d411d"
   :heat_range: 50
   :wet_range: 33
-  :chars: ['Y', ' ', ' ', ' ', ' ']
+  :chars: ['^', ' ', ' ', ' ', ' ']
   :random_chars: true
 
 :tundra:
-  :bg_color: "#859a79"
-  :color: "black"
+  :bg_color: "#768a1b"
+  :color: "#343816"
   :heat_range: 0
   :wet_range: 0
-  :chars: ['T', ' ', ' ', ' ', ' ']
+  :chars: [',', ' ', ' ', ' ', ' ']
   :random_chars: true
 
 :desert:
@@ -49,10 +50,10 @@
 
 # Elevations
 :mountain:
-  :color: "#46a646"
-  :bg_color: "gray"
+  :color: "#656464"
+  :bg_color: "#919191"
   :noise_range: 99
-  :chars: [' ', ' ', ' ']
+  :chars: ['^', ' ', ' ']
   :random_chars: true
 
 :biome:

@@ -49,7 +49,7 @@ class SpriteFactory
 
   def sprite_sheet
     3.times do 
-      klasses.values.each do |klass|
+      klasses.each do |klass|
         3.times { print klass.new.draw }
       end
       puts
