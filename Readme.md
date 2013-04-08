@@ -17,6 +17,6 @@ Navigate around with vim movement keys (`h`,`j`,`k`,`l`)
 Press `x` to exit.
 
 ## Screens
-![ss1](https://raw.github.com/strux/expANSIon/master/lib/screens/ss2.png)
+![ss1](https://raw.github.com/strux/expANSIon/master/lib/screens/ss1.png)
 
-![ss2](https://raw.github.com/strux/expANSIon/blob/master/lib/screens/ss2.png)
+![ss2](https://raw.github.com/strux/expANSIon/master/lib/screens/ss2.png)
