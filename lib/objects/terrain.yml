@@ -1,31 +1,80 @@
+# Biomes
 ---
+:snow:
+  :color: "gray"
+  :bg_color: "white"
+  :heat_range: 0
+  :wet_range: 66
+  :chars: ['.', ' ', ' ', ' ', ' ']
+
+:rain_forest:
+  :color: "#46a646"
+  :bg_color: "#1d411d"
+  :heat_range: 50
+  :wet_range: 66
+  :chars: ['Y', ' ', ' ', ' ', ' ']
+  :random_chars: true
+
+:plains:
+  :bg_color: "#428a1b"
+  :color: "#223816"
+  :heat_range: 0
+  :wet_range: 33
+  :chars: [',', ' ', ' ', ' ', ' ']
+  :random_chars: true
+
 :forest:
   :color: "#46a646"
   :bg_color: "#1d411d"
-  :terrain_height: 60
+  :heat_range: 50
+  :wet_range: 33
   :chars: ['Y', ' ', ' ', ' ', ' ']
+  :random_chars: true
+
+:tundra:
+  :bg_color: "#859a79"
+  :color: "black"
+  :heat_range: 0
+  :wet_range: 0
+  :chars: ['T', ' ', ' ', ' ', ' ']
+  :random_chars: true
+
+:desert:
+  :color: "#007305"
+  :bg_color: "#e3cc4d"
+  :heat_range: 50
+  :wet_range: 0
+  :chars: ['|', ' ', ' ', ' ', ' ']
+  :random_chars: true
+
+# Elevations
+:mountain:
+  :color: "#46a646"
+  :bg_color: "gray"
+  :noise_range: 99
+  :chars: [' ', ' ', ' ']
   :random_chars: true
 
 :beach:
   :color: "#8b7a1b"
   :bg_color: "#e3cc4d"
-  :terrain_height: 40
+  :noise_range: 40
   :chars: [':', '.', ' ', ' ']
   :random_chars: true
 
 :water_shallow:
   :color: "#8b9ea8"
   :bg_color: "#708186"
-  :terrain_height: 35
+  :noise_range: 35
   :chars: [':', '.', ' ', ' ']
   :random_chars: true
 
 :water_medium:
   :color: black
   :bg_color: "#4a78a5"
-  :terrain_height: 30
+  :noise_range: 30
 
 :water_deep:
   :color: black
   :bg_color: "#29538a"
-  :terrain_height: 0
+  :noise_range: 0

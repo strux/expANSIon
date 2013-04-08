@@ -1,17 +1,19 @@
 require 'perlin'
 
 class WorldGenerator
-  attr_reader :entities, :elevations, :map, :size
+  attr_reader :elevation_sprites, :elevations, :map, :size
 
-  def initialize(entities, args={})
-    @entities = entities.sort_by{ |k,e| e.terrain_height }.reverse
+  def initialize(sprites, args={})
+    @elevation_sprites = sprites.select{ |k,e| e.respond_to? :noise_range }.sort_by{ |k,e| e.noise_range }.reverse
     defaults.merge(args)
     .each { |k,v| instance_variable_set("@#{k}",v) }
 
     # TODO Inject dependency
     perlin_gen = Perlin::Generator.new(200, 1, 4)
-    @noise_map = perlin_gen.chunk(1, 1, @size, @size, 0.008)
-    @elevations = @noise_map.flatten.sort
+    @heat_map = perlin_gen.chunk(1, 1, @size, @size, 0.007)
+    @wet_map = perlin_gen.chunk(1, 1, @size, @size, 0.007)
+    @elevation_map = perlin_gen.chunk(1, 1, @size, @size, 0.008)
+    @elevations = @elevation_map.flatten.sort
     generate_map
   end
 
@@ -32,17 +34,17 @@ class WorldGenerator
   end
 
   def generate_map
-    @noise_map.each_index do |row|
+    @elevation_map.each_index do |row|
       @map << []
-      @noise_map[row].each_with_index do |value, column|
-        @map[row][column] = entity_from_height(value)
+      @elevation_map[row].each_with_index do |value, column|
+        @map[row][column] = elevation_sprite_from_height(value)
       end
     end
   end
 
-  def entity_from_height(height)
-    entities.each do |k, entity_klass|
-      return entity_klass.new if height >= elevation_from_percent(entity_klass.terrain_height)
+  def elevation_sprite_from_height(height)
+    elevation_sprites.each do |k, elevation_sprite_klass|
+      return elevation_sprite_klass.new if height >= elevation_from_percent(elevation_sprite_klass.noise_range)
     end
   end
 

@@ -28,9 +28,9 @@ class SpriteFactory
       klass.send(:define_method, :defaults) do
         super().merge(properties)
       end
-      if properties.has_key? :terrain_height
-        klass.send(:define_singleton_method, :terrain_height) do
-          properties[:terrain_height]
+      if properties.has_key? :noise_range
+        klass.send(:define_singleton_method, :noise_range) do
+          properties[:noise_range]
         end
       end
       @klasses[obj.to_sym] = klass
