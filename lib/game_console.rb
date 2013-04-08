@@ -1,5 +1,5 @@
 class GameConsole
-  attr_accessor :player, :engine, :start_location
+  attr_accessor :player, :engine
 
   def initialize(args={})
     defaults.merge(args)
@@ -7,13 +7,11 @@ class GameConsole
   end
 
   def defaults
-    {
-      start_location: :center,
-    }
+    {}
   end
 
   def start
-    engine.render_chunk(x: player.x, y: player.y)
+    engine.render_chunk_around(player)
     loop do
       ch = STDIN.getch
       return  if ch == "x"
@@ -21,7 +19,7 @@ class GameConsole
       player.x -= 1 if ch == "h"
       player.y += 1 if ch == "j"
       player.y -= 1 if ch == "k"
-      engine.render_chunk(x: player.x, y: player.y)
+      engine.render_chunk_around(player)
     end
   end
 end

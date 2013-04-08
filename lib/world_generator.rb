@@ -9,8 +9,8 @@ class WorldGenerator
     .each { |k,v| instance_variable_set("@#{k}",v) }
 
     # TODO Inject dependency
-    perlin_gen = Perlin::Generator.new(200, 1, 2)
-    @noise_map = perlin_gen.chunk(1, 1, @size, @size, 0.02)
+    perlin_gen = Perlin::Generator.new(200, 1, 4)
+    @noise_map = perlin_gen.chunk(1, 1, @size, @size, 0.008)
     @elevations = @noise_map.flatten.sort
     generate_map
   end

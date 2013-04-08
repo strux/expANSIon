@@ -6,13 +6,6 @@
   :chars: ['Y', ' ', ' ', ' ', ' ']
   :random_chars: true
 
-:water_shallow:
-  :color: "#8b9ea8"
-  :bg_color: "#708186"
-  :terrain_height: 20
-  :chars: [':', '.', ' ', ' ']
-  :random_chars: true
-
 :beach:
   :color: "#8b7a1b"
   :bg_color: "#e3cc4d"
@@ -20,10 +13,17 @@
   :chars: [':', '.', ' ', ' ']
   :random_chars: true
 
+:water_shallow:
+  :color: "#8b9ea8"
+  :bg_color: "#708186"
+  :terrain_height: 35
+  :chars: [':', '.', ' ', ' ']
+  :random_chars: true
+
 :water_medium:
   :color: black
   :bg_color: "#4a78a5"
-  :terrain_height: 10
+  :terrain_height: 30
 
 :water_deep:
   :color: black

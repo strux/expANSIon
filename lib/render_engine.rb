@@ -1,29 +1,43 @@
 class RenderEngine
+  attr_accessor :entities, :size
 
   def initialize(map, args={})
     @map = map
+    @entities = []
     defaults.merge(args)
     .each { |k,v| instance_variable_set("@#{k}",v) }
   end
 
   def defaults
     {
-      size: 30,
+      size: 40,
     }
   end
 
-  def render_center
-    # math half etc
-    render_chunk(x: x, y: y)
+  def register(*entities)
+    @entities = @entities | entities
+  end
+
+  def render_chunk_around(obj)
+    x = obj.x - (size / 2)
+    y = obj.y - (size / 2)
+    render_chunk({x: x, y: y})
   end
 
   def render_chunk(args={x: 0, y: 0})
     args = defaults.merge(args)
     t = Time.now
     print "\e[2J\e[f"
-    (args[:y]..(args[:y] + args[:size])).each do |col|
-      (args[:x]..(args[:x] + args[:size])).each do |row|
-        print @map[row][col].draw
+    (args[:y]..(args[:y] + args[:size])).each do |y|
+      (args[:x]..(args[:x] + args[:size])).each do |x|
+        draw_tile = true
+        @entities.each do |e|
+          if e.x == x and e.y == y
+            e.draw
+            draw_tile = false
+          end
+        end
+        @map[x][y].draw if draw_tile
       end
       puts
     end
