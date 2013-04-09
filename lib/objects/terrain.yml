@@ -79,9 +79,10 @@
 :water_medium:
   :color: black
   :bg_color: "#4a78a5"
-  :noise_range: 30
+  :noise_range: 25
 
 :water_deep:
   :color: black
   :bg_color: "#29538a"
   :noise_range: 0
+
