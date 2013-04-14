@@ -25,11 +25,10 @@ class RenderEngine
   end
 
   def render_chunk(args={x: 0, y: 0})
-    args = defaults.merge(args)
     t = Time.now
     print "\e[2J\e[f"
-    (args[:y]..(args[:y] + args[:size])).each do |y|
-      (args[:x]..(args[:x] + args[:size])).each do |x|
+    (args[:y]..(args[:y] + size - 1)).each do |y|
+      (args[:x]..(args[:x] + size - 1)).each do |x|
         draw_tile = true
         @entities.each do |e|
           if e.x == x and e.y == y
