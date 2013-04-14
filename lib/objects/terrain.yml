@@ -52,37 +52,37 @@
 :mountain:
   :color: "#656464"
   :bg_color: "#919191"
-  :noise_range: 99
+  :elevation_range: 100
   :chars: ['^', ' ', ' ']
   :random_chars: true
 
 :biome:
   :color: "black"
   :bg_color: "red"
-  :noise_range: 47
+  :elevation_range: 99
   :chars: ['B', 'I', 'O']
 
 :beach:
   :color: "#8b7a1b"
   :bg_color: "#e3cc4d"
-  :noise_range: 40
+  :elevation_range: 47
   :chars: [':', '.', ' ', ' ']
   :random_chars: true
 
 :water_shallow:
   :color: "#8b9ea8"
   :bg_color: "#708186"
-  :noise_range: 35
+  :elevation_range: 40
   :chars: [':', '.', ' ', ' ']
   :random_chars: true
 
 :water_medium:
   :color: black
   :bg_color: "#4a78a5"
-  :noise_range: 25
+  :elevation_range: 35
 
 :water_deep:
   :color: black
   :bg_color: "#29538a"
-  :noise_range: 0
+  :elevation_range: 25
 
