@@ -3,48 +3,48 @@
 :snow:
   :color: "gray"
   :bg_color: "white"
-  :heat_range: 0
-  :wet_range: 66
+  :temp: 50
+  :precip: 100
   :chars: ['.', ' ', ' ', ' ', ' ']
   :random_chars: true
 
 :rain_forest:
   :color: "#2b240d"
   :bg_color: "#1d411d"
-  :heat_range: 50
-  :wet_range: 66
+  :temp: 100
+  :precip: 100
   :chars: ['Y', ' ', ' ', ' ', ' ']
   :random_chars: true
 
 :plains:
   :bg_color: "#428a1b"
   :color: "#223816"
-  :heat_range: 0
-  :wet_range: 33
+  :temp: 50
+  :precip: 66
   :chars: [',', ' ', ' ', ' ', ' ']
   :random_chars: true
 
 :forest:
   :color: "#0f210f"
   :bg_color: "#1d411d"
-  :heat_range: 50
-  :wet_range: 33
+  :temp: 100
+  :precip: 66
   :chars: ['^', ' ', ' ', ' ', ' ']
   :random_chars: true
 
 :tundra:
   :bg_color: "#768a1b"
   :color: "#343816"
-  :heat_range: 0
-  :wet_range: 0
+  :temp: 50
+  :precip: 33
   :chars: [',', ' ', ' ', ' ', ' ']
   :random_chars: true
 
 :desert:
   :color: "#007305"
   :bg_color: "#e3cc4d"
-  :heat_range: 50
-  :wet_range: 0
+  :temp: 100
+  :precip: 33
   :chars: ['|', ' ', ' ', ' ', ' ']
   :random_chars: true
 
@@ -52,37 +52,37 @@
 :mountain:
   :color: "#656464"
   :bg_color: "#919191"
-  :elevation_range: 100
+  :elevation: 100
   :chars: ['^', ' ', ' ']
   :random_chars: true
 
 :biome:
   :color: "black"
   :bg_color: "red"
-  :elevation_range: 99
+  :elevation: 99
   :chars: ['B', 'I', 'O']
 
 :beach:
   :color: "#8b7a1b"
   :bg_color: "#e3cc4d"
-  :elevation_range: 47
+  :elevation: 47
   :chars: [':', '.', ' ', ' ']
   :random_chars: true
 
 :water_shallow:
   :color: "#8b9ea8"
   :bg_color: "#708186"
-  :elevation_range: 40
+  :elevation: 40
   :chars: [':', '.', ' ', ' ']
   :random_chars: true
 
 :water_medium:
   :color: black
   :bg_color: "#4a78a5"
-  :elevation_range: 35
+  :elevation: 35
 
 :water_deep:
   :color: black
   :bg_color: "#29538a"
-  :elevation_range: 25
+  :elevation: 25
 

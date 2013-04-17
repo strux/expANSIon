@@ -1,36 +1,61 @@
 require 'perlin'
 
 class WorldGenerator
-  attr_reader :elevation_sprites, :wet_sprites, :heat_sprites, :elevations, :heats, :wets, :map, :size
+  attr_reader :sprites, :map, :size
 
   def initialize(sprites, args={})
-    @elevation_sprites = sprites.select{ |k| k.respond_to? :noise_range }.sort_by{ |k| k.noise_range }.reverse
-    @wet_sprites = sprites.select{ |k| k.respond_to?(:wet_range) }.sort_by{ |k| k.wet_range }
-    @heat_sprites = sprites.select{ |k| k.respond_to?(:heat_range) }.sort_by{ |k| k.heat_range }
+    @sprites = sprites
     defaults.merge(args)
     .each { |k,v| instance_variable_set("@#{k}",v) }
+    @perlin = {}
+    @noise = {}
+    @range = {}
 
-    perlin_wet        = Perlin::Generator.new(@seed, 1, 2)
-    perlin_heat       = Perlin::Generator.new(@seed, 1, 2)
-    perlin_elevation  = Perlin::Generator.new(@seed, 1, 4)
-    @wet_noise        = perlin_wet.chunk(1, 1, @size, @size, 0.007)
-    @heat_noise       = perlin_heat.chunk(1, 1, @size, @size, 0.007)
-    @elevation_noise  = perlin_elevation.chunk(1, 1, @size, @size, 0.008)
-    @wets             = @wet_noise.flatten.sort
-    @heats            = @heat_noise.flatten.sort
-    @elevations       = @elevation_noise.flatten.sort
+    @perlin[:elevation] = Perlin::Generator.new(@seed, 1, 4)
+    @noise[:elevation]  = @perlin[:elevation].chunk(1, 1, @size, @size, 0.008)
+    @range[:elevation]  = @noise[:elevation].flatten.sort
 
-    @elevation_lookup = {}
-    @elevation_sprites.each{ |s| @elevation_lookup[value_from_percent(s.noise_range, @elevations)] = s }
+    @perlin[:temp]   = Perlin::Generator.new(@seed, 1, 2)
+    @noise[:temp]    = @perlin[:temp].chunk(1, 1, @size, @size, 0.001)
+    @range[:temp]    = @noise[:temp].flatten.sort
+
+    @perlin[:precip]   = Perlin::Generator.new((@seed + 1), 1, 2)
+    @noise[:precip]    = @perlin[:precip].chunk(1, 1, @size, @size, 0.001)
+    @range[:precip]    = @noise[:precip].flatten.sort
 
     generate_map
   end
 
-  def ranged_fixnum_hash_lookup(value, hash, range)
-    min = range.first - 1
-    hash.keys.sort.each do |k|
-      return hash[k] if min < value and value <= k
-      min = k
+  def sprite_map
+    return @sprite_map if @sprite_map
+    @sprite_map = { elevation: {}, climate: {} }
+    sprites.each do |s|
+      @sprite_map[:elevation][key_map[:elevation][s.elevation]] = s if s.respond_to? :elevation
+      if s.respond_to? :temp and s.respond_to? :precip
+        @sprite_map[:climate]["#{key_map[:temp][s.temp]},#{key_map[:precip][s.precip]}"] = s
+      end
+    end
+    @sprite_map
+  end
+
+  def key_map
+    return @key_map if @key_map
+    @key_map = { elevation: {}, temp: {}, precip: {} }
+    sprites.each do |s|
+      @key_map[:elevation][s.elevation] = value_from_percent(s.elevation, @range[:elevation]) if s.respond_to? :elevation
+      @key_map[:temp][s.temp]           = value_from_percent(s.temp, @range[:temp])        if s.respond_to? :temp
+      @key_map[:precip][s.precip]       = value_from_percent(s.precip, @range[:precip])      if s.respond_to? :precip
+    end
+    @key_map
+  end
+
+  def closest_key(map_key, input)
+    min = -10000000000000
+    sorted = key_map[map_key].values.sort
+    sorted.each do |value|
+      return value if min < input and input <= value
+      return value if value == sorted.last
+      min = value
     end
   end
 
@@ -42,6 +67,10 @@ class WorldGenerator
     }
   end
 
+  def value_from_percent(percent, list)
+    list[(list.length * percent * 0.01).floor - 1]
+  end
+
   def width
     size / 2
   end
@@ -51,37 +80,19 @@ class WorldGenerator
   end
 
   def generate_map
-    @elevation_noise.each_index do |row|
+    @noise[:elevation].each_index do |row|
       @map << []
-      @elevation_noise[row].each_with_index do |value, column|
-        #sprite_klass = elevation_sprite_from_height(value)
-        sprite_klass = ranged_fixnum_hash_lookup(value, @elevation_lookup, @elevations)
-        require 'debug'
-        #if sprite_klass.class == Biome
-        #  wet  = @wet_noise[row][column]
-        #  heat = @heat_noise[row][column]
-        #  @map[row][column] = biome_sprite_from_conditions(wet, heat)
-        #else
+      @noise[:elevation][row].each_with_index do |value, column|
+        sprite_klass = sprite_map[:elevation][closest_key(:elevation, value)]
+        if sprite_klass == Biome
+          temp =    @noise[:temp][row][column]
+          precip =  @noise[:precip][row][column]
+          @map[row][column] = sprite_map[:climate]["#{closest_key(:temp, temp)},#{closest_key(:precip, precip)}"].new
+        else
           @map[row][column] = sprite_klass.new
-        #end
+        end
       end
     end
-  end
-
-  def biome_sprite_from_conditions(wet, heat)
-    wet_klasses = wet_sprites.select{ |klass| value_from_percent(klass.wet_range, wets) <= wet }
-    heat_klasses = heat_sprites.select{ |klass| value_from_percent(klass.heat_range, heats) <= heat }
-    heat_klasses.reverse.each{ |klass| return klass.new if wet_klasses.include? klass }
-  end
-
-  def elevation_sprite_from_height(height)
-    elevation_sprites.each do |klass|
-      return klass.new if height >= value_from_percent(klass.noise_range, elevations)
-    end
-  end
-
-  def value_from_percent(percent, list)
-    list[(list.length * percent * 0.01).floor]
   end
 
 end

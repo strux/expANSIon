@@ -28,19 +28,19 @@ class SpriteFactory
       klass.send(:define_method, :defaults) do
         super().merge(properties)
       end
-      if properties.has_key? :elevation_range
-        klass.send(:define_singleton_method, :elevation_range) do
-          properties[:elevation_range]
+      if properties.has_key? :elevation
+        klass.send(:define_singleton_method, :elevation) do
+          properties[:elevation]
         end
       end
-      if properties.has_key? :heat_range
-        klass.send(:define_singleton_method, :heat_range) do
-          properties[:heat_range]
+      if properties.has_key? :temp
+        klass.send(:define_singleton_method, :temp) do
+          properties[:temp]
         end
       end
-      if properties.has_key? :wet_range
-        klass.send(:define_singleton_method, :wet_range) do
-          properties[:wet_range]
+      if properties.has_key? :precip
+        klass.send(:define_singleton_method, :precip) do
+          properties[:precip]
         end
       end
       @klasses << klass
