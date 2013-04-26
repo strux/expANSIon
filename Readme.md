@@ -7,10 +7,10 @@ moment.
 
 ## Running
 Only known to work with Ruby 1.9.3 in iTerm2 (OS X Mountain Lion).
-You'll need the perlin, paint and active_support gems installed.
 
 Just clone the repo, cd into the directory and run
 ```bash
+bundle install
 ruby lib/application.rb
 ```
 Navigate around with vim movement keys (`h`,`j`,`k`,`l`).
